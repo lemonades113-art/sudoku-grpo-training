@@ -4,10 +4,10 @@ Training a 3B LLM (Qwen2.5-3B-Instruct) to solve 9×9 Sudoku puzzles using GRPO 
 
 ## Project Overview
 
-This project implements a complete training pipeline from SFT cold-start to GRPO reinforcement learning, enabling a 3B model to develop multi-step reasoning capability for 9×9 Sudoku puzzles under 24GB single-GPU memory constraints.
+This project implements a complete training pipeline from SFT cold-start to GRPO reinforcement learning, enabling a 3B model to develop multi-step reasoning capability for 9×9 Sudoku puzzles under single-GPU memory constraints.
 
 Key technical contributions:
-- DFS-style trial-and-error Chain-of-Thought data synthesis
+
 - Multi-dimensional reward design (correctness, format, row/column/block logic, clue preservation, brevity, backtracking)
 - Memory-efficient training with 4-bit quantization + LoRA + paged optimizer
 
@@ -39,32 +39,8 @@ Key technical contributions:
 python sudoku_grpo.py
 ```
 
-### Multi-GPU Training
 
-```bash
-# Linux
-bash run_grpo_multicard.sh
 
-# Windows
-.\run_grpo_multicard.ps1
-```
-
-### Quick Test (10 steps)
-
-```bash
-bash test_grpo_10steps.sh
-```
-
-## Key Parameters
-
-| Parameter | Single-GPU | Multi-GPU |
-|-----------|-----------|-----------|
-| Model | Qwen2.5-3B-Instruct (4-bit) | Same |
-| num_generations | 12 | 12 |
-| max_completion_length | 4096 | 1024 |
-| beta (KL penalty) | 0.001 | 0.003 |
-| per_device_train_batch_size | 12 (auto-adjusted) | 1 |
-| gradient_accumulation_steps | 1 | 4 |
 
 ## Reward Functions
 
@@ -100,8 +76,7 @@ LoRA config:
 - Total steps: 1000
 - Per step: 1 unique prompt × 12 rollouts
 - Total prompts covered: ~1000
-- Average completion length: ~454 tokens
-- Peak GPU memory: ~22GB (RTX 4090D, 24GB)
+- Peak GPU memory: ~22GB 
 
 ## License
 
