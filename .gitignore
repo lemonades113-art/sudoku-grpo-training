@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+.qoder/
+
+# Checkpoints
+.ipynb_checkpoints/
+
+# W&B
+wandb/
+*.wandb
+
+# Large model files (use Git LFS if needed)
+*.safetensors
+*.bin
+*.pt
+*.pth
+optimizer.pt
+scheduler.pt
+rng_state.pth
+
+# Archives
+*.zip
+*.tar.gz
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Training outputs
+output/grpo_model/
+output/sft_model/
+output/checkpoint-*/

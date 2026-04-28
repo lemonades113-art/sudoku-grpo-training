@@ -1,0 +1,57 @@
+################################
+# 模型配置 (ModelConfig)
+################################
+model_name_or_path: ./output/sft_model
+# 是否使用 LoRA
+use_peft: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lora_target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+
+################################
+# 数据集配置 (DatasetArguments)
+################################
+sft_data_path: sudoku_reasoning_dataset.json
+grpo_data_path: sudoku_cluewise.csv
+num_grpo_samples: 5000
+
+################################
+# 训练配置 (GRPOConfig)
+################################
+# 基础超参
+learning_rate: 2.0e-5
+lr_scheduler_type: cosine
+optim: paged_adamw_8bit
+
+# 训练步数与日志（3B 模型：更多步数冲击顿悟点）
+max_steps: 10
+logging_steps: 1
+
+# 生成相关（3B 友好配置）
+num_generations: 12    # 增加采样多样性，但保持在显存容纳范围
+max_completion_length: 1024
+use_vllm: false  # 禁用 vLLM 推理服务器
+
+# 生成批次大小：必须能被 num_generations 整除
+# 计算：generation_batch_size = per_device_train_batch_size * num_generations
+# 这里：1 * 12 = 12
+generation_batch_size: 12
+
+# 奖励调参（3B 模型：平衡 KL 散度与奖励优化）
+beta: 0.003  # KL 约束系数（平衡探索与稳定性）
+
+# 梯度积累（多卡推荐 > 1，提高稳定性）
+gradient_accumulation_steps: 4
+
+# 批次大小（多卡时自动分散）x
+per_device_train_batch_size: 1
+
+# 多卡兼容性
+bf16: true
+gradient_checkpointing: true
+
+# 输出目录与监控
+output_dir: output/sudoku_grpo_trl_edition
+report_to: ["swanlab", "tensorboard"]
+logging_dir: output/logs
