@@ -18,26 +18,17 @@ Key technical contributions:
 │   ├── sudoku_grpo.py              # Main single-GPU GRPO training script
 │   ├── create_sudoku_dataset.py    # Sudoku dataset generation with DFS-style CoT
 │   ├── eval_9x9.py                 # Single-GPU evaluation
-│   ├── eval_9x9_dual.py            # Dual-GPU evaluation
 │   └── debug_generations_callback.py # Debug callback for generation inspection
 ├── dataset/
 │   └── sudoku_cluewise.csv         # Training dataset
 ├── configs/
-│   ├── grpo_config.yaml            # Dual-GPU GRPO configuration
-│   ├── accelerate_config_zero2.yaml
-│   └── accelerate_config_zero3.yaml
-├── docs/
-│   ├── interview_guide.md          # Comprehensive interview preparation guide
-│   ├── resume_description.md       # Resume project description
-│   ├── resume_project.md           # Extended resume project description
-│   └── memory_analysis.md          # GPU memory usage analysis
+│   ├── grpo_config.yaml            #  GRPO configuration
 ├── results/
 │   ├── grpo_exam_results.json      # GRPO model evaluation results
 │   └── sudoku_reasoning_dataset.json # Generated reasoning dataset
 ├── reward_images/                  # Reward function visualization plots
 ├── test_grpo_10steps.sh            # Quick 10-step test script
-├── run_grpo_multicard.sh           # Multi-GPU training launch script
-└── run_grpo_multicard.ps1          # Multi-GPU training launch script (Windows)
+
 ```
 
 ## Quick Start
